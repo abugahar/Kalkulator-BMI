@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator BMI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #f6d365, #fda085);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            padding: 15px;
+            border-radius: 5px;
+            background: #ffebcc;
+            display: none;
+        }
+        .nav {
+            margin-top: 20px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="hasil" class="result" style="display: none; padding: 15px; border-radius: 5px; font-size: 18px;"></div>
+        <h2>Kalkulator BMI</h2>
+        <form id="bmiForm">
+            <table>
+                <tr>
+                    <td><label>Nama:</label></td>
+                    <td><input type="text" id="nama" required placeholder="Masukkan nama Anda"></td>
+                </tr>
+                <tr>
+                    <td><label>Email:</label></td>
+                    <td><input type="email" id="email" required placeholder="Masukkan email Anda"></td>
+                </tr>
+                <tr>
+                    <td><label>Usia:</label></td>
+                    <td><input type="number" id="usia" required placeholder="Masukkan usia Anda"></td>
+                </tr>
+                <tr>
+                    <td><label>Jenis Kelamin:</label></td>
+                    <td>
+                        <select id="jenis_kelamin">
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Berat Badan (kg):</label></td>
+                    <td><input type="number" id="berat" required placeholder="Contoh: 70"></td>
+                </tr>
+                <tr>
+                    <td><label>Tinggi Badan (m):</label></td>
+                    <td><input type="number" id="tinggi" required step="0.01" placeholder="Contoh: 1.75"></td>
+                </tr>
+                <tr>
+                    <td><label>Aktivitas Harian:</label></td>
+                    <td>
+                        <select id="aktivitas">
+                            <option value="Sedentari">Sedentari</option>
+                            <option value="Ringan">Ringan</option>
+                            <option value="Sedang">Sedang</option>
+                            <option value="Berat">Berat</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Hitung BMI</button>
+        </form>
+        <div id="hasil" class="result"></div>
+
+        <!-- Link ke halaman About -->
+        <div class="nav">
+            <a href="{{ url_for('about') }}">Tentang Kami</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
