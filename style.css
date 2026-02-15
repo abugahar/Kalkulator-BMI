@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #f6d365, #fda085); /* Sesuaikan dengan gradient background di HTML */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 50%;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+td {
+    padding: 10px;
+    text-align: left;
+}
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+button {
+    background-color: #28a745; /* Sesuaikan warna tombol dengan HTML */
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #218838; /* Hover effect pada tombol */
+}
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    padding: 15px;
+    border-radius: 5px;
+    background: #ffebcc;
+    display: none;
+}
+
+document.getElementById("bmiForm").addEventListener("submit", function(event) {
+    event.preventDefault();  // Mencegah refresh halaman
+
+    const data = {
+        nama: document.getElementById("nama").value.trim(),
+        usia: document.getElementById("usia").value.trim(),
+        jenis_kelamin: document.getElementById("jenis_kelamin").value,
+        berat: document.getElementById("berat").value.trim(),
+        tinggi: document.getElementById("tinggi").value.trim(),
+        aktivitas: document.getElementById("aktivitas").value,
+        email: document.getElementById("email").value.trim() // Tambahkan email
+    };
+
+    fetch("/hitung_bmi", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        let hasilDiv = document.getElementById("hasil");
+        if (data.error) {
+            hasilDiv.style.color = "red";
+            hasilDiv.innerHTML = <p><strong>Error:</strong> ${data.error}</p>;
+        } else {
+            hasilDiv.style.color = "black";
+            hasilDiv.style.backgroundColor = "#ffebcc";
+            hasilDiv.innerHTML = <p><strong>BMI:</strong> ${data.bmi}</p>
+                                  <p><strong>Rekomendasi:</strong> ${data.rekomendasi}</p>;
+        }
+        hasilDiv.style.display = "block";
+    })
+    .catch(error => console.error("Error:", error));
+});
